@@ -60,25 +60,44 @@ bot.dialog('/haveAadhar',[
             }
         }
         
-        session.endDialog();
+        //session.endDialog();
         
     }
     
 ]);
+bot.dialog("/menu",[
+    function(session){
+        builder.Prompts.choice(session, "The Things I can Provide:", 'Services|Policies That You Have');
+    },
+    function(session,results){
+        switch (results.response.index) {
+                case 0:
+                    session.beginDialog('/menu-services');
+                    break;
+                case 1:
+                    session.beginDialog('/menu-policies');
+                    break;
+                default:
+                    session.endDialog();
+                    break;
+            }
+    }
+]
+);
 
 bot.dialog('/noAadhar',function(session){
     session.send("Oh Snap Probably You  should register");
     session.endDialog();
 });
 
-bot.dialog('/menu',[
+bot.dialog('/menu-services',[
     function(session){
-        builder.Prompts.choice(session, "Services:", 'PAN|Income Certifiate|VotersId|Residency Certificate');
+        builder.Prompts.choice(session, "Services:", 'Birth Certificate|Income Certifiate|VotersId|Residency Certificate');
     },
     function(session,results){
         switch (results.response.index) {
                 case 0:
-                    //session.beginDialog('/PAN');
+                    session.beginDialog('/birthCertificate');
                     break;
                 case 1:
                     session.beginDialog('/incomeCertificate');
@@ -93,8 +112,70 @@ bot.dialog('/menu',[
     }
 ]);
 
-bot.beginDialog('/incomeCertificate',[
+bot.dialog('/menu-policies',[
     function(session){
-           
+        builder.Prompts.choice(session, "Policies:", 'NAAM|SWAYAM');
+    },
+     function(session,results){
+        switch (results.response.index) {
+                case 0:
+                    session.send("NAAM");
+                    break;
+                case 1:
+                    session.send('SWAYAM');
+                    break;
+                default:
+                    session.endDialog();
+                    break;
+            }
     }
+
+]);
+
+bot.dialog('/incomeCertificate',[
+    function(session){
+        session.send("Got your Details..I have submitted a request for Income Certificate..");
+        session.send("I will notify You once it Arrives..Have Fun");
+
+    }
+]);
+
+bot.dialog('/birthCertificate',[
+    function(session,args,next){
+        session.send("Congratulations.. Dear Father!");
+        session.send("Let me Know More About Ur child!");
+        next();
+    },
+    function(session){
+        builder.Prompts.text(session,"What good name did you choose for your Child ! I'm exited to know...");
+
+    },
+    function(session,results){
+        builder.Prompts.text(session,"Ok..that's cool, Now what was the exact date on which You got this Blessing?");
+    },
+    function(session,results){
+         builder.Prompts.text(session,"I'm Sure that you remember the time too!..");
+    },
+    function(session,results){
+         builder.Prompts.text(session,"Lucky Father!..You Didn't tell me who is that lucky mother..");
+    },
+    function(session,results){
+         builder.Prompts.text(session,"Please do provide me her Aadhar number also..");
+    },
+    function(session){
+        session.send("A little more about the birth Place..");
+        builder.Prompts.text(session,"1.District");
+    },
+    function(session,results){
+        session.send("Got It!..");
+        builder.Prompts.text(session,"2.Subdistrict");
+    },
+    function(session,results){
+        builder.Prompts.text(session,"Yep..that's Good, Now The 3.Proper Place");
+    },
+    function(session,results){
+        builder.Prompts.text(session,"All Caught Up I am Submitting the application!..");
+    }    
+
+
 ]);
