@@ -85,10 +85,87 @@ bot.dialog("/menu",[
 ]
 );
 
-bot.dialog('/noAadhar',function(session){
+bot.dialog('/noAadhar',[function(session,args,next){
     session.send("Oh Snap Probably You  should register");
-    session.endDialog();
-});
+    session.send(session,"Don't worry about it, I'm there");
+    next();
+},
+    function(session){
+    builder.Prompts.text(session,"Can I know your First name please ?");
+},
+    function(session){
+    builder.Prompts.text(session,"Cool, awsome name! So your last name ?");
+    },
+    function(session){
+    builder.Prompts.text(session,"Your Gender! I know I'm a bit wiered, bare me");
+    },
+    function(session){
+        builder.Prompts.text(session,"So, your age ?");
+    },
+    function(session){
+        builder.Prompts.text(session,"Well, I hope I'm not bragging");
+    },
+    function(session){
+        builder.Prompts.text(session,"Next, Let me get your D.O.B");
+    },
+    function(session){
+            builder.Prompts.text(session,"Where do stay as in your house name");
+    },
+    function(session){
+        builder.Prompts.text(session,"I'm direct at you, Your street lol!");
+    },
+    function(session){
+        builder.Prompts.text(session,"Getting pissed,lol ! So your landmark ");
+    },
+    function(session){
+        builder.Prompts.text(session,"Which is your area");
+    },
+    function(session){
+        builder.Prompts.text(session,"Well, I wished that I could be from your place");
+    },
+    function(session){
+        builder.Prompts.text(session,"Village, please");
+    },
+    function(session){
+        builder.Prompts.text(session,"It's so nice to talk to you ! Now, District please");
+    },
+    function(session){
+        builder.Prompts.text(session,"So I guess you have an email ? ");
+    },
+    function(session){
+        builder.Prompts.text(session,"Ok,so your contact number");
+    },
+    function(session){
+        builder.Prompts.text(session,"Pincode");
+    },
+    function(session){
+        builder.Prompts.text(session,"So it's going pretty well right ?");
+    },
+    function(session){
+        builder.Prompts.text(session,"Can you help me with your parents detials ?");
+    },
+    function(session){
+        builder.Prompts.text(session,"Fathers name ?");
+    },
+    function(session){
+        builder.Prompts.text(session,"Mothers name ?");
+    },
+    function(session){
+        builder.Prompts.text(session,"Cool, It's awsome we are about to finish ! Now I'll be needing some of your documents");
+    },
+    function(session){
+        builder.Prompts.text(session,"Proof Of Address");
+    },
+    function(session){
+        builder.Prompts.text(session,"Proof Of Id");
+    },
+    function(session){
+        builder.Prompts.text(session,"Your signature");
+    },
+    function(session){
+        builder.Prompts.text(session,"It was really great talking to you ! Your enrollment Id is on way !");
+    }
+]);
 
 bot.dialog('/menu-services',[
     function(session){
