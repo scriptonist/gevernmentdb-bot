@@ -67,7 +67,7 @@ bot.dialog('/haveAadhar',[
 ]);
 bot.dialog("/menu",[
     function(session){
-        builder.Prompts.choice(session, "The Things I can Provide:", 'Services|Policies That You Have');
+        builder.Prompts.choice(session, "The Things I can Provide:", 'Services|Policies That You Have|Solve Grieviences|General Info');
     },
     function(session,results){
         switch (results.response.index) {
@@ -77,6 +77,12 @@ bot.dialog("/menu",[
                 case 1:
                     session.beginDialog('/menu-policies');
                     break;
+                 case 2:
+                    session.beginDialog('/menu-grv');
+                    break;
+                 case 3:
+                    session.beginDialog('/menu-general');
+                    break;
                 default:
                     session.endDialog();
                     break;
@@ -84,7 +90,22 @@ bot.dialog("/menu",[
     }
 ]
 );
-
+bot.dialog("/menu-general",[
+    function(session){
+        builder.Prompts.text(session,"What can i help you with?");
+    },
+    function(session,results){
+        session.send("Ok I will look it up and Notify You Of it...");
+    }
+]);
+bot.dialog("/menu-grv",[
+    function(session){
+        builder.Prompts.text(session,"What is it ?");
+    },
+    function(session,results){
+        session.send("Ok Got I will Submit this and ask for a review")
+    }
+]);
 bot.dialog('/noAadhar',[function(session,args,next){
     session.send("Oh Snap Probably You  should register");
     session.send(session,"Don't worry about it, I'm there");
